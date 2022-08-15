@@ -11,7 +11,7 @@ const thoughtSchema = new Schema(
         createdAt: {
             type: Date,
             default: Date.now(),
-            //TODO: Getter method to format timestamp on query.
+            get: formatDate,
         },
         username: {
             type: String,
@@ -25,3 +25,12 @@ const thoughtSchema = new Schema(
         }
     }
 );
+
+//Getter method to format the date.
+function formatDate(date) {
+    return date.toDateString();
+}
+
+const Thought = model("thought", thoughtSchema);
+
+module.exports = Thought;

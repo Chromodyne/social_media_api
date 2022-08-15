@@ -28,23 +28,28 @@ const userSchema = new Schema(
                     "That is not a valid email address."
                     ],
         },
-        //TODO: Check that this works as intended.
-        // thoughts: [ {
-        //     type: Schema.Types.ObjectId,
-        //     ref: "Thought",
-        // }],
-        // friends: [{
-        //     type: Schema.Types.ObjectId,
-        //     ref: this,
-        // }]
+        //TODO: Check this.
+        thoughts: [ {
+            type: Schema.Types.ObjectId,
+            ref: "Thought",
+        }],
+        friends: [{
+            type: Schema.Types.ObjectId,
+            ref: this,
+        }]
     },
     {
         toJSON: {
-            virtuals: true
+            virtuals: true,
         },
         id: false
     }
 );
+
+//Virtual that gets the length of user's friends array on query.
+userSchema.virtual("friendCount").get(function() {
+   return this.friends.length;
+});
 
 //Create a model from the schema created above.
 const User = model("user", userSchema);
