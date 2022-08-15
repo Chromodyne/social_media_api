@@ -9,6 +9,7 @@ function validateEmailAddress (email) {
 
 }
 
+//Create new schema with for users of the API.
 const userSchema = new Schema(
     {
         username: {
@@ -45,6 +46,8 @@ const userSchema = new Schema(
     }
 );
 
+//Create a model from the schema created above.
 const User = model("user", userSchema);
 
+//Export the user model.
 module.exports = User;
