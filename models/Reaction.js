@@ -18,7 +18,19 @@ const reactionSchema = new Schema(
         createdAt: {
             type: Date,
             default: Date.now(),
-            //TODO: Create getter method to format timestamp.
+            get: formatDate
+        }
+    },
+    {
+        toJSON: {
+            virtuals: true,
+            getters: true
         }
     }
 );
+
+function formatDate (date) {
+    return date.toDateString();
+}
+
+module.exports = reactionSchema;
