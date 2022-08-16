@@ -1,5 +1,7 @@
+//Imports
 const { Schema, Types } = require("mongoose");
 
+//NOTE: This schema does not get a model but rather remains a schema exclusively.
 const reactionSchema = new Schema(
     {
         reactionId: {
