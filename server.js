@@ -11,6 +11,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(routes);
 
+//Once database is open, start server.
 db.once("open", () => {
    app.listen(PORT, () => {
        console.log(`Social Media API Listening on port: ${PORT}`);

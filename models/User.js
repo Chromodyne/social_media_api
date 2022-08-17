@@ -28,7 +28,7 @@ const userSchema = new Schema(
                     "That is not a valid email address."
                     ],
         },
-        //TODO: Check this.
+
         thoughts: [ {
             type: Schema.Types.ObjectId,
             ref: "Thought",

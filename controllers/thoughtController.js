@@ -25,11 +25,13 @@ module.exports = {
             .then((thought) => res.json(thought)).catch((err) => res.status(500).json(err));
     },
 
+    //Delete a thought.
     deleteThought(req, res) {
         Thought.deleteOne({ _id: req.params.thoughtId })
             .then((thought) => res.json(thought)).catch((err) => res.status(500).json(err));
     },
 
+    //Update a thought with new information.
     updateThought(req, res) {
         Thought.findOneAndUpdate({ _id: req.params.thoughtId },
             {
@@ -47,6 +49,7 @@ module.exports = {
             });
     },
 
+    //Create a reaction on the specified thought.
     createReaction(req, res) {
         Thought.findOneAndUpdate(
             {_id: req.params.thoughtId},
@@ -58,11 +61,18 @@ module.exports = {
         }).catch((err) => res.status(200).json({message: "Success!"}));
     },
 
-    // deleteReaction(req, res) {
-    //     Thought.findOneAndUpdate({ _id: req.params.thoughtId},
-    //         {$pull: { reactions: { _id: req.body.id}
-    //
-    //     )
-    // ,
+    //Delete a reaction to a thought based on the reactionId given in the json.
+    deleteReaction(req, res) {
+        Thought.findOneAndUpdate({ _id: req.params.thoughtId},
+            {$pull: { reactions: { reactionId: req.body.reactionId}}},
+            { new: true}, function(err) {
+                if(err) {
+                    console.log(err);
+                    res.status(500).json(err);
+                } else {
+                    res.status(200).json({ message: "Successfully deleted."});
+                }
+            }
+        )},
 
 }

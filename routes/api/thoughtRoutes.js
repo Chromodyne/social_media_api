@@ -4,12 +4,16 @@ const { getThoughts,
         createThought,
         deleteThought,
         updateThought,
-        createReaction} = require("../../controllers/thoughtController");
+        createReaction,
+        deleteReaction} = require("../../controllers/thoughtController");
 
+//Used to get and post thoughts.
 router.route("/").get(getThoughts).post(createThought);
 
+//Used to get an individual thought, delete an individual thought, or update an individual thought.
 router.route("/:thoughtId").get(getOneThought).delete(deleteThought).put(updateThought);
 
-router.route("/:thoughtId/reaction").post(createReaction);
+//Used to add and remove reactions to thoughts.
+router.route("/:thoughtId/reaction").post(createReaction).delete(deleteReaction);
 
 module.exports = router;

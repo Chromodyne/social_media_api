@@ -1,4 +1,5 @@
 const User = require("../models/User");
+const Thought = require("../models/Thought");
 
 module.exports = {
     //Get all users request.
@@ -48,4 +49,35 @@ module.exports = {
             });
 
     },
+
+    //Adds a friend to the friend array of a user.
+    addFriend(req, res) {
+        User.findOneAndUpdate(
+            { _id: req.params.userId},
+            { $addToSet: { friends: req.body},
+            username: req.body.username},
+            {runValidators: true, new: true}, function(err) {
+                if (err) {
+                    console.log(err);
+                    res.status(500).json(err);
+                } else {
+                    res.status(200).json({ message: "Friend added successfully."});
+                }
+            }
+        )},
+
+    //Deletes a friend from the friend array of the user.
+    deleteFriend(req, res) {
+        User.findOneAndUpdate({ _id: req.params.thoughtId},
+            {$pull: { friends: { _id: req.body}}},
+            { new: true}, function(err) {
+                if(err) {
+                    console.log(err);
+                    res.status(500).json(err);
+                } else {
+                    res.status(200).json({ message: "Friend removed successfully."});
+                }
+            }
+        )},
+
 }
