@@ -23,6 +23,46 @@ module.exports = {
     createThought(req, res) {
         Thought.create(req.body)
             .then((thought) => res.json(thought)).catch((err) => res.status(500).json(err));
-    }
+    },
+
+    deleteThought(req, res) {
+        Thought.deleteOne({ _id: req.params.thoughtId })
+            .then((thought) => res.json(thought)).catch((err) => res.status(500).json(err));
+    },
+
+    updateThought(req, res) {
+        Thought.findOneAndUpdate({ _id: req.params.thoughtId },
+            {
+                thoughtText: req.body.thoughtText,
+                username: req.body.username
+            }, null,
+            function (err, docs) {
+                if(err) {
+                    console.log(err);
+                    res.status(500).json(err);
+                } else {
+                    console.log("Thought updated successfully.");
+                    res.status(200).json(docs);
+                }
+            });
+    },
+
+    createReaction(req, res) {
+        Thought.findOneAndUpdate(
+            {_id: req.params.thoughtId},
+            {$addToSet: {reactions: req.body},
+            username: req.body.username},
+            {runValidators: true, new: true}).then((reaction) => {
+            !thought ? res.status(404).json({message: "Thought does not exist."})
+                : res.json(reaction);
+        }).catch((err) => res.status(200).json({message: "Success!"}));
+    },
+
+    // deleteReaction(req, res) {
+    //     Thought.findOneAndUpdate({ _id: req.params.thoughtId},
+    //         {$pull: { reactions: { _id: req.body.id}
+    //
+    //     )
+    // ,
 
 }
