@@ -8,7 +8,7 @@ module.exports = {
 
     //Get one user based on the user's ID passed in as a parameter.
     getOneUser(req, res) {
-        User.findOne({ _id: req.params.userId}).select("-__v")
+        User.findOne({ _id: req.params.userId }).select("-__v")
             .then(async (user) => {
                 !user ? res.status(404).json({ message: "User not found." })
                     : res.json(user)
@@ -28,5 +28,24 @@ module.exports = {
     deleteUser(req, res) {
         User.deleteOne({ _id: req.params.userId })
             .then((user) => res.json(user)).catch((err) => res.status(500).json(err));
-    }
+    },
+
+    //Update a user
+    updateUser(req, res) {
+        User.findOneAndUpdate({ _id: req.params.userId },
+            {
+                username: req.body.username,
+                email: req.body.email
+            }, null,
+            function (err, docs) {
+                if(err) {
+                    console.log(err);
+                    res.status(500).json(err);
+                } else {
+                    console.log("User updated successfully.");
+                    res.status(200).json(docs);
+                }
+            });
+
+    },
 }
