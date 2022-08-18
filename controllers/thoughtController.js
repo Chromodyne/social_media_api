@@ -58,7 +58,7 @@ module.exports = {
             {runValidators: true, new: true}).then((reaction) => {
             !thought ? res.status(404).json({message: "Thought does not exist."})
                 : res.json(reaction);
-        }).catch((err) => res.status(200).json({message: "Success!"}));
+        }).catch((err) => res.status(500).json(err));
     },
 
     //Delete a reaction to a thought based on the reactionId given in the json.

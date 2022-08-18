@@ -1,4 +1,4 @@
-const { Schema, model } = require("mongoose");
+const { Schema, model, Types} = require("mongoose");
 
 //This function will be used to validate the email address the user enters. May swap to method later.
 function validateEmailAddress (email) {
@@ -35,6 +35,7 @@ const userSchema = new Schema(
         }],
         friends: [{
             type: Schema.Types.ObjectId,
+            default: ()  => new Types.ObjectId(),
             ref: this,
         }]
     },

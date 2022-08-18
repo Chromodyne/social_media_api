@@ -69,7 +69,7 @@ module.exports = {
     //Deletes a friend from the friend array of the user.
     deleteFriend(req, res) {
         User.findOneAndUpdate({ _id: req.params.thoughtId},
-            {$pull: { friends: { _id: req.body}}},
+            {$pull: { friends: req.body}},
             { new: true}, function(err) {
                 if(err) {
                     console.log(err);

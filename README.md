@@ -22,3 +22,5 @@ Give it a shot today!
 ## Walkthrough Video ##
 
 A brief video explaining what the application does and how to use it can be found at the link below.
+
+https://youtu.be/ZmbpkdbROv4
